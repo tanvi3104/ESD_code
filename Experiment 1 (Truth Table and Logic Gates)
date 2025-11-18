@@ -1,0 +1,69 @@
+Experiment 1 (Truth Table and Logic Gates) 
+To study and verify the truth table of various logic gates (NOT, AND, OR, NAND, NOR, 
+EX-OR, & EX NOR). 
+Code 
+module logic_gates ( 
+input wire a, 
+input wire b, 
+output wire not_a, 
+output wire and_ab, 
+output wire or_ab, 
+output wire nand_ab, 
+output wire nor_ab, 
+output wire xor_ab, 
+output wire xnor_ab 
+); 
+assign not_a = ~a; 
+assign and_ab = a & b; 
+assign or_ab = a | b; 
+assign nand_ab = ~(a & b); 
+assign nor_ab = ~(a | b); 
+assign xor_ab = a ^ b; 
+assign xnor_ab = ~(a ^ b); 
+endmodule 
+module logic_gates_tb; 
+reg a; 
+reg b; 
+wire not_a; 
+wire and_ab; 
+wire or_ab; 
+wire nand_ab; 
+wire nor_ab; 
+wire xor_ab; 
+wire xnor_ab; 
+logic_gates obj ( 
+.a(a), 
+.b(b), 
+.not_a(not_a), 
+.and_ab(and_ab), 
+.or_ab(or_ab), 
+.nand_ab(nand_ab), 
+.nor_ab(nor_ab), 
+.xor_ab(xor_ab), 
+.xnor_ab(xnor_ab) 
+); 
+initial begin 
+$display("A B | NOT A | AND AB | OR AB | NAND AB | NOR AB | XOR AB | XNOR 
+AB"); 
+$display(" 
+a = 0; b = 0; #10; 
+"); 
+$display("%b %b | %b | %b 
+| %b | %b | %b | %b | %b", a, b, not_a, 
+and_ab, or_ab, nand_ab, nor_ab, xor_ab, xnor_ab); 
+a = 0; b = 1; #10; 
+$display("%b %b | %b | %b 
+| %b | %b | %b | %b | %b", a, b, not_a, 
+and_ab, or_ab, nand_ab, nor_ab, xor_ab, xnor_ab); 
+a = 1; b = 0; #10; 
+$display("%b %b | %b | %b 
+| %b | %b | %b | %b | %b", a, b, not_a, 
+and_ab, or_ab, nand_ab, nor_ab, xor_ab, xnor_ab); 
+a = 1; b = 1; #10; 
+$display("%b %b | %b | %b 
+| %b | %b | %b | %b | %b", a, b, not_a, 
+and_ab, or_ab, nand_ab, nor_ab, xor_ab, xnor_ab); 
+// End simulation 
+$finish; 
+end 
+endmodule 
