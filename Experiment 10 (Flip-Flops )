@@ -1,0 +1,29 @@
+Experiment 10 (Flip-Flops ) 
+To design and verify the operation of D flip-flops using logic gates. 
+Code 
+module D_FlipFlop(D, clk, Q); 
+input D; 
+input clk; 
+output reg Q; 
+always @(posedge clk) Q = D; 
+endmodule 
+module tb_D_FF(); 
+reg D, clk; 
+wire Q; 
+D_FlipFlop dut(D, clk, Q); 
+initial begin 
+clk = 0; 
+forever #10 clk = ~clk; 
+end 
+initial begin 
+$display("T clk D Q"); 
+$monitor("%t %b %b %b", $time, clk, D, Q); 
+end 
+initial begin 
+D = 0; #20; 
+D = 1; #20; 
+D = 0; #20; 
+D = 1; #20; 
+$finish; 
+end 
+endmodule 
