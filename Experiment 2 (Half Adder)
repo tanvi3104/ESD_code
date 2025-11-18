@@ -1,0 +1,36 @@
+Experiment 2 (Half Adder) 
+To design and verify a half adder using S= (x+y)(x’+y’) C= xy 
+Code 
+module halfadder(a, b, sum, carry); 
+input a, b; 
+output sum,carry; 
+assign sum = a ^ b; //sum bit 
+assign carry = a & b; //carry bit 
+endmodule 
+module halfadder_tb; 
+reg a, b; 
+wire sum, carry; 
+halfadder add1( 
+.a(a), 
+.b(b), 
+.sum(sum), 
+.carry(carry) 
+); 
+initial begin 
+$display("a b | Sum (S) | Carry (C)"); 
+$display(" 
+"); 
+// Apply all possible inputs (truth table) 
+a = 0; b = 0; 
+#10; 
+$display("%b %b | %b | %b", a, b,sum, carry); 
+a = 0; b = 1; #10; 
+$display("%b %b | %b  | %b", a, b, sum, carry); 
+a = 1; b = 0; #10;  
+$display("%b %b | %b | %b", a, b, sum, carry); 
+a = 1; b = 1; #10;    
+$display("%b %b | %b | %b", a, b, sum, carry); 
+// End simulation  
+$finish; 
+end 
+endmodule 
