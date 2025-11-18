@@ -1,0 +1,70 @@
+Experiment 12 (Counter) 
+To verify the operation of asynchronous counter. 
+Code 
+// --- Up-Counter Module --- 
+module up_counter(input clk, reset, output [3:0] counter); 
+reg [3:0] counter_up; 
+always @(posedge clk or posedge reset) 
+begin 
+if(reset) 
+counter_up <= 4'd0; 
+else 
+counter_up <= counter_up + 4'd1; 
+end 
+assign counter = counter_up; 
+endmodule 
+// --- Testbench for Up-Counter --- 
+module upcounter_testbench; 
+reg clk, reset; 
+wire [3:0] counter; 
+integer a; 
+up_counter dut (clk, reset, counter); 
+initial begin 
+clk = 0; 
+for (a=0; a<=10; a=a+1) 
+#10 clk = ~clk; 
+end 
+initial begin 
+$display ("time\t clk \t reset \t counter"); 
+$monitor ("%0t \t %b \t %b \t %b", $time, clk, reset, counter); 
+reset = 1; 
+#20; 
+reset = 0; 
+end 
+endmodule 
+// --- Up-Down Counter Module --- 
+module up_down_counter(input clk, reset, up_down, output [3:0] counter); 
+reg [3:0] counter_up_down; 
+always @(posedge clk or posedge reset) 
+begin 
+if(reset) 
+counter_up_down <= 4'h0; 
+else if(~up_down) 
+counter_up_down <= counter_up_down + 4'h1; 
+else 
+counter_up_down <= counter_up_down - 4'h1; 
+end 
+assign counter = counter_up_down; 
+endmodule 
+// --- Testbench for Up-Down Counter --- 
+module updown_counter_testbench; 
+reg clk, reset, up_down; 
+wire [3:0] counter; 
+integer a; 
+up_down_counter dut (clk, reset, up_down, counter); 
+initial begin 
+clk = 0; 
+for (a=0; a<=10; a=a+1) 
+#10 clk = ~clk; 
+end 
+initial begin 
+$display ("time \t clk \t reset \t up-down \t counter"); 
+$monitor ("%0t \t %b \t %b \t %b \t %b", $time, clk, reset, up_down, counter); 
+reset = 1; 
+up_down = 0; 
+#20; 
+reset = 0; 
+#20; 
+up_down = 1; 
+end 
+endmodule 
