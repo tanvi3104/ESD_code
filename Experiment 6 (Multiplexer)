@@ -1,0 +1,38 @@
+Experiment 6 (Multiplexer) 
+To design and implement a 4:1 multiplexer 
+Code 
+module mux(s1,s2,a,b,c,d,y); 
+input s1,s2,a,b,c,d; 
+output y; 
+assign y = ~s1&~s2&a | ~s1&s2&b | s1&~s2&c | s1&s2&d ; 
+endmodule 
+module mux_tb; 
+reg s1, s2; 
+reg a, b, c, d; 
+wire y; 
+mux obj ( 
+.s1(s1), 
+.s2(s2), 
+.a(a), 
+.b(b), 
+.c(c), 
+.d(d), 
+.y(y) 
+); 
+// Test sequence 
+initial begin 
+// Display header 
+$display("s1 s2 | a b c d | y"); 
+$display(" 
+"); 
+s1 = 0; s2 = 0; a = 1; b = 0; c = 0; d = 0; #10; 
+$display("%b %b | %b %b %b %b | %b", s1, s2, a, b, c, d, y); 
+s1 = 0; s2 = 1; a = 0; b = 1; c = 0; d = 0; #10; 
+$display("%b %b | %b %b %b %b | %b", s1, s2, a, b, c, d, y); 
+s1 = 1; s2 = 0; a = 0; b = 0; c = 1; d = 0; #10; 
+$display("%b %b | %b %b %b %b | %b", s1, s2, a, b, c, d, y); 
+s1 = 1; s2 = 1; a = 0; b = 0; c = 0; d = 1; #10; 
+$display("%b %b | %b %b %b %b | %b", s1, s2, a, b, c, d, y); 
+$finish; 
+end 
+endmodule 
