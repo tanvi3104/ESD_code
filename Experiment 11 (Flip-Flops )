@@ -1,0 +1,38 @@
+Experiment 11 (Flip-Flops ) 
+To design and verify the operation of JK flip-flops using logic gates. 
+Code 
+module jk_ff(j, k, clk, q, qb); 
+input j, k, clk; 
+output reg q; 
+output qb; 
+assign qb = ~q; 
+always @(posedge clk) begin 
+case ({j,k}) 
+2'b00: q <= q; 
+2'b01: q <= 0; 
+2'b10: q <= 1; 
+// No change 
+// Reset 
+// Set 
+2'b11: q <= ~q; // Toggle 
+endcase 
+end 
+endmodule 
+module test; 
+reg j, k, clk; 
+wire q, qb; 
+jk_ff t1(j, k, clk, q, qb); 
+initial begin 
+$display("T clk j k | q qb"); 
+$monitor("%0t %b %b %b | %b %b", $time, clk, j, k, q, qb); 
+j=0; k=0; #10; 
+j=0; k=1; #10; 
+j=1; k=0; #10; 
+j=1; k=1; #10; 
+$finish; 
+end 
+initial begin 
+clk = 0; 
+forever #5 clk = ~clk; 
+end 
+endmodule
