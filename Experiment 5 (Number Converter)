@@ -1,0 +1,44 @@
+Experiment 5 (Number Converter) 
+Design a BCD to Excess 3 code converter using combinational circuits. 
+Code 
+module BCD2Ex3(A, B, C, D, W, X, Y, Z); 
+input A, B, C, D; 
+output W, X, Y, Z; 
+assign W = A | (B&C) | (B&D); 
+assign X = (~B&C) | (~B & D) | (B & ~C & ~D); 
+assign Y = ~( C ^ D); 
+assign Z = ~D; 
+endmodule 
+module BCD2Ex3_tb; 
+reg A, B, C, D; 
+wire W, X, Y, Z; 
+BCD2Ex3 obj ( 
+.A(A), .B(B), .C(C), .D(D), .W(W), .X(X), .Y(Y), .Z(Z) 
+); 
+initial begin 
+$display("A B C D | W X Y Z (Excess-3)"); 
+$display(" 
+A = 0; B = 0; C = 0; D = 0; #10; 
+"); 
+$display("%b %b %b %b | %b %b %b %b", A, B, C, D, W, X, Y, Z); 
+A = 0; B = 0; C = 0; D = 1; #10; 
+$display("%b %b %b %b | %b %b %b %b", A, B, C, D, W, X, Y, Z); 
+A = 0; B = 0; C = 1; D = 0; #10; 
+$display("%b %b %b %b | %b %b %b %b", A, B, C, D, W, X, Y, Z); 
+A = 0; B = 0; C = 1; D = 1; #10; 
+$display("%b %b %b %b | %b %b %b %b", A, B, C, D, W, X, Y, Z); 
+A = 0; B = 1; C = 0; D = 0; #10; 
+$display("%b %b %b %b | %b %b %b %b", A, B, C, D, W, X, Y, Z); 
+A = 0; B = 1; C = 0; D = 1; #10; 
+$display("%b %b %b %b | %b %b %b %b", A, B, C, D, W, X, Y, Z); 
+A = 0; B = 1; C = 1; D = 0; #10; 
+$display("%b %b %b %b | %b %b %b %b", A, B, C, D, W, X, Y, Z); 
+A = 0; B = 1; C = 1; D = 1; #10; 
+$display("%b %b %b %b | %b %b %b %b", A, B, C, D, W, X, Y, Z); 
+A = 1; B = 0; C = 0; D = 0; #10; 
+$display("%b %b %b %b | %b %b %b %b", A, B, C, D, W, X, Y, Z); 
+A = 1; B = 0; C = 0; D = 1; #10; 
+$display("%b %b %b %b | %b %b %b %b", A, B, C, D, W, X, Y, Z); 
+$finish; 
+end 
+endmodule
