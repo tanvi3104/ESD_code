@@ -1,0 +1,45 @@
+Experiment 3 (Full Adder) 
+To design and verify a full adder using S = x’y’z+x’yz’+xy’z’+xyz C=xy+xz+yz 
+Code 
+module full_adder(x, y, z, S, C); 
+input x, y, z; 
+output S, C; 
+assign S = x^y^z; //sum bit 
+assign C = ((x&y) | (y&z) | (x&z)); //carry bit 
+endmodule 
+module full_adder_tb; 
+reg x; 
+reg y; 
+reg z; 
+wire S; 
+wire C; 
+full_adder obj ( 
+.x(x), 
+.y(y), 
+.z(z), 
+.S(S), 
+.C(C) 
+); 
+initial begin 
+$display("X Y Z | Sum (S) | Carry (C)"); 
+$display(" 
+x = 0; y = 0; z = 0; #10; 
+"); 
+$display("%b %b %b | %b | %b", x, y, z, S, C); 
+x = 0; y = 0; z = 1; #10;    
+$display("%b %b %b | %b | %b", x, y, z, S, C); 
+x = 0; y = 1; z = 0; #10;    
+$display("%b %b %b | %b | %b", x, y, z, S, C); 
+x = 0; y = 1; z = 1; #10;    
+$display("%b %b %b | %b | %b", x, y, z, S, C); 
+x = 1; y = 0; z = 0; #10;    
+$display("%b %b %b | %b | %b", x, y, z, S, C); 
+x = 1; y = 0; z = 1; #10;    
+$display("%b %b %b | %b | %b", x, y, z, S, C); 
+x = 1; y = 1; z = 0; #10;    
+$display("%b %b %b | %b | %b", x, y, z, S, C); 
+x = 1; y = 1; z = 1; #10;    
+$display("%b %b %b | %b | %b", x, y, z, S, C); 
+$finish;    
+end    
+endmodule
