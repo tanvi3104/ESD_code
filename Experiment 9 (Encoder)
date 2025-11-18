@@ -1,0 +1,35 @@
+Experiment 9 (Encoder) 
+To design and implement a 4:2 encoder. 
+Code 
+module encoder(a,b,c,d,p,q); 
+input a,b,c,d; 
+output p,q; 
+assign p = a | b; 
+assign q = a | c; 
+endmodule 
+module encoder_tb; 
+reg a, b, c, d; 
+wire p, q; 
+encoder obj( 
+.a(a), 
+.b(b), 
+.c(c), 
+.d(d), 
+.p(p), 
+.q(q) 
+); 
+initial begin 
+$display("a b c d | p q"); 
+$display(" 
+"); 
+a = 0; b = 0; c = 0; d = 1; #10; 
+$display("%b %b %b %b | %b %b", a, b, c, d, p, q); 
+a = 0; b = 0; c = 1; d = 0; #10; 
+$display("%b %b %b %b | %b %b", a, b, c, d, p, q); 
+a = 0; b = 1; c = 0; d = 0; #10; 
+$display("%b %b %b %b | %b %b", a, b, c, d, p, q); 
+a = 1; b = 0; c = 0; d = 0; #10; 
+$display("%b %b %b %b | %b %b", a, b, c, d, p, q); 
+$finish; 
+end 
+endmodule
