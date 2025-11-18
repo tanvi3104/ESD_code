@@ -1,0 +1,36 @@
+Experiment 4 (Half Subtractor) 
+To design and verify a half subtractor using D = x’y +xy’ B=x’y 
+Code 
+module half_subtractor(x, y, D, B); 
+input x,y; 
+output D,B; 
+assign D = x ^ y; 
+assign B = ~x & y; 
+endmodule 
+module half_subtractor_tb; 
+reg x; 
+reg y; 
+wire D; 
+wire B; 
+half_subtractor obj ( 
+.x(x), 
+.y(y), 
+.D(D), 
+.B(B) 
+); 
+initial begin 
+$display("X Y | Difference (D) | Borrow (B)"); 
+$display(" 
+x = 0; y = 0; #10;
+ "); 
+$display("%b %b | 
+%b | %b", x, y, D, B); 
+x = 0; y = 1; #10;    
+$display("%b %b | 
+x = 1; y = 0; #10;    
+$display("%b %b | 
+x = 1; y = 1; #10;    
+$display("%b %b | 
+$finish;    
+end    
+endmodule
